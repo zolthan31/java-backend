@@ -1,21 +1,28 @@
 package com.dhbtecnologia.rest;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dhbtecnologia.domain.User;
+import com.dhbtecnologia.service.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserRest {
 	
+	@Autowired
+	private UserService service;
+	
 	@GetMapping
-	public ResponseEntity<User> findAll() {
+	public ResponseEntity<List<User>> findAll() {
 		
-		User u = new User(1L, "Marial", "maria@gmail.com", "99999999", "12345");
-		return ResponseEntity.ok().body(u);
+		List<User> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 
 }
